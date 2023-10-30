@@ -11,7 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
           leftTopVertical = document.querySelector('#left-top-vertical'),
           leftTopHorisontal = document.querySelector('#left-top-horisontal'),
 
-          box = document.querySelector('.radius');
+          box = document.querySelector('.radius'),
+          valueBox = document.querySelector('.borderRadius__value'),
+          copyBtn = document.querySelector('.copy');
 
 
 
@@ -39,6 +41,8 @@ window.addEventListener('DOMContentLoaded', () => {
               break;
         }
 
+        valueBox.textContent = box.style.borderRadius;
+        console.log(valueBox)
     }
     console.log( box.style.borderRadius )
     rightTopVertical.addEventListener('input', (e) => changeValue(box, 'borderTopRightRadius'));
@@ -54,21 +58,23 @@ window.addEventListener('DOMContentLoaded', () => {
     leftTopHorisontal.addEventListener('input', (e) => changeValue(box, 'borderTopLeftRadius'));
 
     function setLocalStorageValue(name, value) {
-        console.log(value)
+        // console.log(value)
         localStorage.setItem(name, value);
 
     }
 
     function getLocalStorageValue(name, itemRadius, defaultRadius = 0) {
         if (localStorage.getItem(name)) {
-            console.log('if')
+            // console.log(box.style.borderRadius);
+            // valueBox.textContent = box.style.borderRadius;
             itemRadius.value = `${localStorage.getItem(name)}`;
+            
             return localStorage.getItem(name)
         } else {
-            console.log('else')
+            // console.log('else')
             setLocalStorageValue(name, defaultRadius);
             itemRadius.value = `${defaultRadius}`;
-            console.log(itemRadius.value)
+            // console.log(itemRadius.value)
             return defaultRadius
         }
     }
@@ -81,9 +87,18 @@ window.addEventListener('DOMContentLoaded', () => {
                                   ${getLocalStorageValue('lth', leftTopHorisontal)}%
                                   ${getLocalStorageValue('rth', rightTopHorisontal)}%
                                   ${getLocalStorageValue('rbh', rightBottomHorisontal)}%
-                                  ${getLocalStorageValue('lbh', leftBottomHorisontal)}%`
+                                  ${getLocalStorageValue('lbh', leftBottomHorisontal)}%`;
+        valueBox.textContent = box.style.borderRadius;
                                   
     }
     setRadius()
-    console.log( box.style.borderRadius )
+    console.log( box.style.borderRadius );
+    copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText(`border-radius: ${box.style.borderRadius}`).then(function() {
+            console.log('Текст успешно скопирован в буфер обмена');
+          }, function(err) {
+            console.error('Произошла ошибка при копировании текста: ', err);
+          });
+    })
 })
+
