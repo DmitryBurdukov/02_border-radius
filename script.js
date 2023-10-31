@@ -42,7 +42,7 @@ window.addEventListener('DOMContentLoaded', () => {
         }
 
         valueBox.textContent = box.style.borderRadius;
-        console.log(valueBox)
+        // console.log(valueBox)
     }
     console.log( box.style.borderRadius )
     rightTopVertical.addEventListener('input', (e) => changeValue(box, 'borderTopRightRadius'));
